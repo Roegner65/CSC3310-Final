@@ -1,20 +1,21 @@
 import random
 
 class Node:
-
-    forward = []
     
     def __init__ (self, key, level):
         self.key = key
+        self.forward = []
 
         for c in range(level + 1):
             self.forward.append(None)
-        
+
+        print(self.forward)
+        print(self)
 
 
 class skiplist:
 
-    def skiplist (self, maxLevel, P):
+    def __init__ (self, maxLevel, P):
         self.maxLevel = maxLevel
         self.P = P
         self.level = 0
@@ -36,10 +37,11 @@ class skiplist:
         current = self.head
         update = []
 
-        for i in range(self.level, 0, -1):
-            while (current.forward[i] != None and current.forward[i].key < key):
+        for i in range(self.level, -1, -1):
+            while (current.forward[i] != None and current.forward[i].key < key and current.forward[i] != self):
                 current = current.forward[i]
-            update[i] = current
+
+            update.append(current)
         
 
         current = current.forward[0]
@@ -50,7 +52,7 @@ class skiplist:
             if (rlevel > self.level):
 
                 for i in range(self.level + 1, rlevel+1):
-                    update[i] = self.head
+                    update.append(self.head)
                 
                 self.level = rlevel
             
@@ -58,9 +60,9 @@ class skiplist:
             n = self.createNode(key, rlevel)
 
             for i in range(rlevel + 1):
-                n.forward[i] = update[i].forward[i]
+                n.forward.append(update[i].forward[i-1])
                 update[i].forward[i] = n
-            print("Successfully Inserted key " + key + "\n")
+            print("Successfully Inserted key " + str(key) + "\n")
 
 
     def searchElement(self, key):
@@ -77,9 +79,21 @@ class skiplist:
         current = current.forward[0]
 
         if (current.key == key):
-            print("Found key: " + key)
+            print("Found key: " + str(key))
         else:
             print("Not Found")
+
+    def displayList(self):
+        print("\n*****Skip List*****\n")
+        string = ""
+        for i in range(0, self.level+1):
+            node = self.head.forward[i]
+            string += ("Level " + str(i) + ": ")
+            while (node != None):
+                string += (str(node.key) + " ")
+                node = node.forward[i]
+            string += "\n"
+        print(string)
         
     
 
