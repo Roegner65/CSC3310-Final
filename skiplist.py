@@ -92,6 +92,20 @@ class skiplist:
                 node = node.forward[i]
             string += "\n"
         print(string)
+
+    def deleteElement(self, key):
+        current = self.head
+        
+        for i in range(self.level, -1, -1):
+            while (current.forward[i] != None and current.forward[i].key <= key):
+                if current.forward[i].key == key:
+                    
+                    current.forward[i] = current.forward[i].forward[i]
+                    
+                    if current.key == -1 and current.forward[i] == None:
+                        self.level -= 1
+                else:
+                    current = current.forward[i]
         
     
 

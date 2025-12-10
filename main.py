@@ -28,16 +28,14 @@ lst.searchElement(9)
 lst.searchElement(5)
 lst.searchElement(55)
 
-# lst.deleteElement(25)
-# lst.displayList()
+lst.deleteElement(25)
+lst.displayList()
 
-# lst.deleteElement(7)
-# lst.displayList()
+lst.deleteElement(7)
+lst.displayList()
 
-# lst.deleteElement(3)
-# lst.displayList()
+lst.deleteElement(3)
+lst.displayList()
 
-# lst.deleteElement(17)
-# lst.displayList()
-
-print("\nbye\n")
+lst.deleteElement(17)
+lst.displayList()
