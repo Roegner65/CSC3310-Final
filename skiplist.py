@@ -1,16 +1,14 @@
 import random
+import numpy as np
 
 class Node:
     
     def __init__ (self, key, level):
         self.key = key
-        self.forward = []
+        self.forward = np.ndarray(level + 1, dtype=Node)
 
         for c in range(level + 1):
-            self.forward.append(None)
-
-        print(self.forward)
-        print(self)
+            self.forward[c] = None
 
 
 class skiplist:
@@ -19,7 +17,7 @@ class skiplist:
         self.maxLevel = maxLevel
         self.P = P
         self.level = 0
-        self.head = Node(-1, maxLevel)
+        self.head = Node(-1, self.maxLevel)
 
     def randomLevel(self):
         r = random.random()
@@ -35,13 +33,13 @@ class skiplist:
 
     def insertElement(self, key):
         current = self.head
-        update = []
+        update = np.ndarray(self.maxLevel + 1, dtype=Node)
 
         for i in range(self.level, -1, -1):
-            while (current.forward[i] != None and current.forward[i].key < key and current.forward[i] != self):
+            while (current.forward[i] != None and current.forward[i].key < key):
                 current = current.forward[i]
 
-            update.append(current)
+            update[i] = current
         
 
         current = current.forward[0]
@@ -52,7 +50,7 @@ class skiplist:
             if (rlevel > self.level):
 
                 for i in range(self.level + 1, rlevel+1):
-                    update.append(self.head)
+                    update[i] = self.head
                 
                 self.level = rlevel
             
@@ -60,7 +58,7 @@ class skiplist:
             n = self.createNode(key, rlevel)
 
             for i in range(rlevel + 1):
-                n.forward.append(update[i].forward[i-1])
+                n.forward[i] = update[i].forward[i]
                 update[i].forward[i] = n
             print("Successfully Inserted key " + str(key) + "\n")
 
