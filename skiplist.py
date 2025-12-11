@@ -86,9 +86,9 @@ class skiplist:
         string = ""
         for i in range(0, self.level+1):
             node = self.head.forward[i]
-            string += ("Level " + str(i) + ": ")
+            string += ("Level " + str(i) + ": | ")
             while (node != None):
-                string += (str(node.key) + " ")
+                string += (str(node.key) + " | ")
                 node = node.forward[i]
             string += "\n"
         print(string)
