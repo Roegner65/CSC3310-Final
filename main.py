@@ -1,4 +1,6 @@
 from skiplist import skiplist
+import random
+import time
 
 MAXLVL = 4
 
@@ -21,6 +23,27 @@ while inp != "q":
     lst.displayList()
     inp = input()
     
+
+lst = skiplist(20, 0.75)
+
+list = list(range(1, 50000))
+
+for i in list:
+    lst.insertElement(i)
+
+start = time.time()
+for element in list:
+    if element == 25000:
+        break
+stop = time.time()
+
+print("Regular list find:", stop - start)
+
+start = time.time()
+lst.searchElement(25000)
+stop = time.time()
+
+print("Skip List find:", stop - start)
 
 # lst.insertElement(35)
 # lst.insertElement(3)

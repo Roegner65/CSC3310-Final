@@ -60,7 +60,7 @@ class skiplist:
             for i in range(rlevel + 1):
                 n.forward[i] = update[i].forward[i]
                 update[i].forward[i] = n
-            print("Successfully Inserted key " + str(key) + "\n")
+            #print("Successfully Inserted key " + str(key) + "\n")
 
 
     def searchElement(self, key):
@@ -84,7 +84,7 @@ class skiplist:
     def displayList(self):
         print("\n*****Skip List*****\n")
         string = ""
-        for i in range(0, self.level+1):
+        for i in range(self.level, -1, -1):
             node = self.head.forward[i]
             string += ("Level " + str(i) + ": | ")
             while (node != None):
